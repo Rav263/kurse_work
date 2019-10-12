@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 
-#include "table_io.h"
+#include "../headers/table_io.h"
 
 
 uint32_t strip_to_int(std::string& ip) {

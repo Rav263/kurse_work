@@ -4,23 +4,9 @@
 #include <bitset>
 
 
-#include "table_io.h"
+#include "./headers/table_io.h"
+#include "./headers/tree.h"
 
-class Node {
-public:
-    IP mask;
-    int net_ip;
-    Node *left;
-    Node *right;
-    
-    Node(int mask, IP net_ip, Node *left, Node *right): mask(mask), left(left), right(right), net_ip(net_ip) {}
-    Node() {
-        mask  = 0;
-        net_ip = 0;
-        left  = nullptr;
-        right = nullptr;
-    }
-};
 
 void add_node(Node *root, Net_IP net_ip) {
     std::bitset<32> ip_set(net_ip.first);
@@ -78,20 +64,3 @@ Net_IP find_node(Node *now_node, IP sr_ip, uint32_t deph) {
     }
 }
 
-int main() {
-    Table table;
-    std::string file_name;
-    
-    std::cin >> file_name;
-    read_table(file_name, table);
-    Node *root = build_radix_tree(table);
-
-    std::string sr_ip;
-
-    while (std::cin >> sr_ip) {
-        auto tmp = find_node(root, strip_to_int(sr_ip), 0);
-        std::cout << tmp.first << " " << tmp.second << std::endl;
-        std::cout << intip_to_string({tmp, table[tmp]});
-    }
-    //    print_node(root, 0);
-}

@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <bitset>
-#include "table_io.h"
+#include "./headers/table_io.h"
 
 
 //#define DEBUG
@@ -34,22 +34,3 @@ std::pair<Net_IP, int> linary_search(Table &table, IP sr_ip) {
     return max_entr;
 }
 
-int main() {
-    std::string file_name;
-    Table table;
-
-    std::cin >> file_name;
-    read_table(file_name, table);
-    print_table(table);
-
-    std::string ip;
-
-    while (std::cin >> ip) {
-        auto founded_entrie = linary_search(table, strip_to_int(ip));
-
-        if (founded_entrie.first.second == -1) 
-            std::cout << " ===> default" << std::endl;
-        else 
-            std::cout << intip_to_string(founded_entrie);
-    }
-}
