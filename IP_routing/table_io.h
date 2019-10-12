@@ -1,5 +1,12 @@
 #include <map>
 #include <string>
 
-void print_table(std::map<std::pair<uint32_t, int>, int> &);
-void read_table(std::string &, std::map<std::pair<uint32_t, int>, int> &);
+using IP     = uint32_t;
+using Net_IP = std::pair<IP, int>; 
+using Table  = std::map<Net_IP, int>;
+
+
+uint32_t strip_to_int(std::string&);
+std::string intip_to_string(std::pair<Net_IP, int>);
+void print_table(Table &);
+void read_table(std::string &, Table &);
