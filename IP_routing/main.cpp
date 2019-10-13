@@ -52,12 +52,13 @@ int main() {
     std::string file_name;
     Table table;
 
+    std::cerr << "Enter table file name: ";
     std::cin >> file_name;
     read_table(file_name, table);
 #ifdef DEBUG
     print_table(table);
 #endif
-    std::cout << "1 -- linary  search" << std::endl
+    std::cerr << "1 -- linary  search" << std::endl
               << "2 -- radix     tree" << std::endl
               << "3 -- patricia  tree" << std::endl
               << "4 -- huffman   tree" << std::endl
@@ -71,6 +72,6 @@ int main() {
     else if (alg == 4) huffman(table);
     else if (alg == 5) alfabetic(table);
     else {
-        std::cout << "Not correct num" << std::endl;
+        std::cerr << "Not correct num" << std::endl;
     }
 }

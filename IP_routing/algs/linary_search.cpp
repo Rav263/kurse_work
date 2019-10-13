@@ -3,7 +3,7 @@
 #include <string>
 #include <vector>
 #include <bitset>
-#include "./headers/table_io.h"
+#include "../headers/table_io.h"
 
 
 //#define DEBUG
