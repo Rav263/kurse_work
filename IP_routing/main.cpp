@@ -19,16 +19,11 @@ void linary(Table &table) {
 }
 
 void radix(Table &table) {
-    std::string file_name;
-    
-    std::cin >> file_name;
-    read_table(file_name, table);
     Node *root = build_radix_tree(table);
-
     std::string sr_ip;
 
     while (std::cin >> sr_ip) {
-        auto tmp = find_node(root, strip_to_int(sr_ip), 0);
+        auto tmp = find_node_radix(root, strip_to_int(sr_ip), 0);
         if (tmp.second == 0) 
             std::cout << " ===> default" << std::endl;
         else
@@ -37,7 +32,17 @@ void radix(Table &table) {
 }
 
 void particia(Table &table) {
-    std::cout << "Comming soon" << std::endl;
+    Node *root = build_patricia_tree(table);
+    std::string sr_ip;
+
+    while (std::cin >> sr_ip) {
+        auto tmp = find_node_patricia(root, strip_to_int(sr_ip), 0);
+        if (tmp.second == 0) 
+            std::cout << " ===> default" << std::endl;
+        else
+            std::cout << intip_to_string({tmp, table[tmp]});
+    }
+
 }
 void huffman(Table &table) {
     std::cout << "Comming soon" << std::endl;

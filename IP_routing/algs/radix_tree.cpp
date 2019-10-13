@@ -8,7 +8,7 @@
 #include "../headers/tree.h"
 
 
-void add_node(Node *root, Net_IP net_ip) {
+static void add_node(Node *root, Net_IP net_ip) {
     std::bitset<32> ip_set(net_ip.first);
     Node **now_node = &root;
 
@@ -41,7 +41,7 @@ Node *build_radix_tree(Table &table) {
     return root;
 }
 
-void print_node(Node *start, int height) {
+static void print_node(Node *start, int height) {
     if (start == nullptr) return;
     for(int i = 0; i < height; i++) {
         std::cout << "::";
@@ -51,16 +51,16 @@ void print_node(Node *start, int height) {
     print_node(start->right, height + 1);
 }
 
-Net_IP find_node(Node *now_node, IP sr_ip, uint32_t deph) {
+Net_IP find_node_radix(Node *now_node, IP sr_ip, uint32_t deph) {
     if (now_node == nullptr) return {0, 0};
 
     if (now_node->mask != 0 and now_node->net_ip != 0) {
-        auto tmp = find_node((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
+        auto tmp = find_node_radix((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
 
         if (tmp.second > now_node->mask) return tmp;
         else return {now_node->net_ip, now_node->mask};
     } else {
-        return find_node((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
+        return find_node_radix((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
     }
 }
 
