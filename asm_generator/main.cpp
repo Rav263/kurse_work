@@ -4,6 +4,8 @@
 #include <string>
 #include <set>
 #include <fstream>
+#include <cmath>
+
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -108,7 +110,7 @@ std::string read_table(Table &table, const std::string &str, ModDefs &definition
 
 void print_header_l2(std::ofstream &file, Defs &definitions, ModDefs &mod_definitions) {
     file << "// THIS IS AUTO GENERATED CODE" << std::endl;
-    file << "#include \"npu_de_defines.h\"" << std::endl;
+    //file << "#include \"npu_de_defines.h\"" << std::endl;
     file << std::endl;
     file << "// HEADER STRUCTURE DEFINITIONS" << std::endl;
 
@@ -175,7 +177,7 @@ void linear_search(Table &table, std::ofstream &file, const std::string &name, u
             if (now_rule & 0x1000) {
                 next_table_index = now_rule ^ 0x1000;
             } else if (now_rule & 0x2000) {
-                file << "setmask " << std::hex << (now_rule ^ 0x2000) << std::endl;
+                file << "setmask (1 << " << std::hex << (now_rule ^ 0x2000) << ")" << std::endl;
             }
         }
 
@@ -191,21 +193,41 @@ void linear_search(Table &table, std::ofstream &file, const std::string &name, u
 }
 
 
+
+uint64_t get_alignment(uint64_t def, uint64_t size) {
+    auto alignment = (def % (size / 8));
+    auto tmp = size / 8;
+
+    std::cout << "SOME DEBUG:: " << (def + alignment) % alignment << " " <<  alignment << std::endl;
+
+    if ((def + alignment) % alignment) {
+        alignment = tmp - alignment;
+        std::cout << "WTH " << alignment << std::endl;
+    }
+    //auto tmp = size / 8;
+    
+    return alignment * 8;
+}
+
+
+
 void parse_table(Table &table, std::ofstream &file, std::string &def, 
         std::map<std::string, uint64_t> &args, ModDefs &definitions, const std::string &name) {
     file << std::endl << "// ------ Table: " << name << " parsing" << std::endl;
     auto size = args["size"];
 
-    auto alignment = size - definitions[def] & size;
+    auto alignment = get_alignment(definitions[def], size);
+
+    std::cout << "def: " << def << " " << alignment  << std::endl;
 
     file << name << ":" << std::endl << std::endl;
     
-    if (alignment != size) {
-        file << "loadbe " << def << ", " << alignment << std::endl;
+    if (alignment != 0 and alignment != size) {
+        file << "loadbe " << def << ", " << std::dec << alignment << std::endl;
         file << "rol " << size - alignment << std::endl;
-        file << "orbe (" << def << " + " << (alignment / 8) << "), " << size - alignment << std::endl;
+        file << "orbe (" << def << " + " << std::dec << (alignment / 8) << "), " << size - alignment << std::endl;
     } else {
-        file << "loadbe " << def << ", " << size << std::endl;
+        file << "loadbe " << def << ", " << std::dec << size << std::endl;
     }
     file << std::endl;
 
@@ -278,7 +300,7 @@ int main() {
     Defs default_defs;
     std::map<std::string, uint64_t> args_1, args_2;
 
-    load_default_definitions(default_defs);
+    //load_default_definitions(default_defs);
     read_header_structure(definitions);
     print_defs(definitions);
     
