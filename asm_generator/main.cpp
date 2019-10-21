@@ -97,7 +97,7 @@ std::string read_table(Table &table, const std::string &str, ModDefs &definition
 
     while (std::cin >> from) {
         if (from == (uint64_t) -1) break;
-        std::cin >> to;
+        std::cin >> std::hex >> to;
         table[from].insert(to);
     }
 
@@ -149,6 +149,48 @@ std::ofstream open_out_file() {
 }
 
 
+/* We realy need refactor table name system!!
+ * Now table name in std::string must be "table_{index}"
+ */
+
+void linear_search(Table &table, std::ofstream &file, const std::string &name, uint64_t msk) {
+    int index = 0;
+
+    for (auto now_entrie : table) {
+        file << "cmpj " << name << "_" << std::dec << index << ", 0x" 
+             << std::hex << now_entrie.first << ", " << std::dec << msk << std::endl;
+        index += 1;
+    }
+
+    file << "j finish" << std::endl << std::endl;
+
+    index = 0;
+
+    for (auto now_entrie : table) {
+        file << name << "_" << std::dec << index << ":" << std::endl;
+
+        uint64_t next_table_index = 0;
+
+        for (auto now_rule : now_entrie.second) {
+            if (now_rule & 0x1000) {
+                next_table_index = now_rule ^ 0x1000;
+            } else if (now_rule & 0x2000) {
+                file << "setmask " << std::hex << (now_rule ^ 0x2000) << std::endl;
+            }
+        }
+
+        if (next_table_index) { 
+            file << "j table_" << std::dec << next_table_index << std::endl;
+        } else {
+            file << "j finish" << std::endl;
+        }
+        index += 1;
+        file << std::endl;
+    }
+
+}
+
+
 void parse_table(Table &table, std::ofstream &file, std::string &def, 
         std::map<std::string, uint64_t> &args, ModDefs &definitions, const std::string &name) {
     file << std::endl << "// ------ Table: " << name << " parsing" << std::endl;
@@ -156,6 +198,8 @@ void parse_table(Table &table, std::ofstream &file, std::string &def,
 
     auto alignment = size - definitions[def] & size;
 
+    file << name << ":" << std::endl << std::endl;
+    
     if (alignment != size) {
         file << "loadbe " << def << ", " << alignment << std::endl;
         file << "rol " << size - alignment << std::endl;
@@ -163,8 +207,9 @@ void parse_table(Table &table, std::ofstream &file, std::string &def,
     } else {
         file << "loadbe " << def << ", " << size << std::endl;
     }
+    file << std::endl;
 
-
+    linear_search(table, file, name, size);
 }
 
 void modify_definitions(Defs &definitions, Defs &default_defs, ModDefs &mody_defs) {
@@ -214,6 +259,19 @@ void modify_definitions(Defs &definitions, Defs &default_defs, ModDefs &mody_def
     wait(0);
 }
 
+void print_table(Table &table, const std::string &name) {
+    std::cout << "PRINTING TABLE: " << name << std::endl;
+
+    for (auto now_entrie : table) {
+        std::cout << (now_entrie.first) << " ";
+        for (auto now_item : now_entrie.second) {
+            std::cout << now_item << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+
 int main() {
     Table table_1, table_2;
     Defs definitions;
@@ -231,9 +289,15 @@ int main() {
     auto search_1 = read_table(table_1, "table_1", mod_definitions, args_1);
     auto search_2 = read_table(table_2, "table_2", mod_definitions, args_2);
    
+    print_table(table_1, "table_1");
+    print_table(table_2, "table_2");
+
     auto out_file = open_out_file();
     print_header_l2(out_file, definitions, mod_definitions);
 
     parse_table(table_1, out_file, search_1, args_1, mod_definitions, "table_1");
     parse_table(table_2, out_file, search_2, args_2, mod_definitions, "table_2");
+
+    out_file << "finish:" << std::endl;
+    out_file.close();
 }
