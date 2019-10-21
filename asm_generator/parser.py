@@ -10,4 +10,4 @@ while True:
 
 
 for key in definitions:
-    print(key, hex(definitions[key]))
+    print(key, definitions[key])

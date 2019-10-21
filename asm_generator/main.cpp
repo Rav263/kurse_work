@@ -4,26 +4,21 @@
 #include <string>
 #include <set>
 #include <fstream>
+
+#include <stdlib.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/wait.h>
+
 /*
  * If we have rule to go table it must look like 0x1000 & table_num
  * If we have rule to go port it must look like 0x2000 & port_num
  */
 
 
-using Table = std::map<uint64_t, std::set<uint64_t>>; // from, to
-using Defs  = std::map<std::string, std::string>; // name, value
-
-void parse_string_def(Defs &definitions, Defs &default_defs, std::string &value) {
-    std::string now_word = "";
-
-    std::vector<std::string> words;
-
-    for (auto now_char : value) {
-        if (now_char == '(') {
-            now_word;
-        }
-    }
-}
+using Table   = std::map<uint64_t, std::set<uint64_t>>; // from, to
+using Defs    = std::vector<std::pair<std::string, std::string>>; // name, value
+using ModDefs = std::map<std::string, uint64_t>; // name, value;
 
 
 void load_default_definitions(Defs &definitions) {
@@ -43,11 +38,17 @@ void load_default_definitions(Defs &definitions) {
 
         in_file >> name >> value;
 
-        definitions[name] = value;
+        definitions.push_back({name, value});
     }
 }
 
 void print_defs(Defs &definitions) {
+    for (auto now_def : definitions) {
+        std::cout << now_def.first << " " << now_def.second << std::endl;
+    }
+}
+
+void print_defs(ModDefs &definitions) {
     for (auto now_def : definitions) {
         std::cout << now_def.first << " " << now_def.second << std::endl;
     }
@@ -79,7 +80,7 @@ void read_table_args(std::map<std::string, uint64_t> &args) {
 }
 
 
-std::string read_table(Table &table, const std::string &str, Defs &definitions, std::map<std::string, uint64_t> &args) {
+std::string read_table(Table &table, const std::string &str, ModDefs &definitions, std::map<std::string, uint64_t> &args) {
     std::cout << "---- TABLE ----" << std::endl;
     std::cout << "Searched value: " << std::endl;
     std::string name;
@@ -105,14 +106,15 @@ std::string read_table(Table &table, const std::string &str, Defs &definitions, 
 
 
 
-void print_header_l2(std::ofstream &file, Defs &definitions) {
+void print_header_l2(std::ofstream &file, Defs &definitions, ModDefs &mod_definitions) {
     file << "// THIS IS AUTO GENERATED CODE" << std::endl;
     file << "#include \"npu_de_defines.h\"" << std::endl;
     file << std::endl;
     file << "// HEADER STRUCTURE DEFINITIONS" << std::endl;
 
     for (auto now_def : definitions) {
-        file << "#define " << now_def.first << " " << now_def.second << std::endl;
+        file << "#define " << now_def.first << " " << now_def.second 
+             << " // 0x" << std::hex << mod_definitions[now_def.first] << std::endl;
     } 
     file << std::endl;
 }
@@ -126,7 +128,7 @@ void read_header_structure(Defs &definitions) {
     while (std::cin >> def) {
         if (not def.compare("end")) break;
         std::cin >> value;
-        definitions[def] = value;
+        definitions.push_back({def, value});
     }
 }
 
@@ -148,11 +150,11 @@ std::ofstream open_out_file() {
 
 
 void parse_table(Table &table, std::ofstream &file, std::string &def, 
-        std::map<std::string, uint64_t> &args, Defs &definitions, const std::string &name) {
+        std::map<std::string, uint64_t> &args, ModDefs &definitions, const std::string &name) {
     file << std::endl << "// ------ Table: " << name << " parsing" << std::endl;
     auto size = args["size"];
 
-    auto alignment = size - std::stoull(definitions[def]) & size;
+    auto alignment = size - definitions[def] & size;
 
     if (alignment != size) {
         file << "loadbe " << def << ", " << alignment << std::endl;
@@ -165,6 +167,52 @@ void parse_table(Table &table, std::ofstream &file, std::string &def,
 
 }
 
+void modify_definitions(Defs &definitions, Defs &default_defs, ModDefs &mody_defs) {
+    std::ofstream out_file;
+    out_file.open(".definitions.tmp");
+
+    if (not out_file.is_open()) {
+        std::cerr << "FATAL ERROR:: Can't open tmp file" << std::endl;
+        exit(1);
+    }
+
+    for (auto now_def : default_defs) {
+        out_file << "#define " << now_def.first << " " << now_def.second << std::endl;
+    }
+
+    for (auto now_def : definitions) {
+        out_file << "#define " << now_def.first << " " << now_def.second << std::endl;
+    }
+
+    out_file << "end" << std::endl;
+    out_file.close();
+
+    if (fork() == 0) {
+        execlp("/bin/sh", "/bin/sh", "-c", "python parser.py < .definitions.tmp > .mod_defs.tmp", NULL);
+    }
+    wait(0);
+
+
+    std::ifstream in_file;
+    in_file.open(".mod_defs.tmp");
+
+    if (not in_file.is_open()) {
+        std::cerr << "FATAL ERROR:: Can't open tmp file" << std::endl;
+        exit(1);
+    }
+
+    std::string now_name;
+    uint64_t value;
+
+    while (in_file >> now_name >> value) {
+        mody_defs[now_name] = value;
+    }
+
+    if (fork() == 0) execlp("rm", "rm", ".definitions.tmp", ".mod_defs.tmp");
+
+    wait(0);
+    wait(0);
+}
 
 int main() {
     Table table_1, table_2;
@@ -176,12 +224,16 @@ int main() {
     read_header_structure(definitions);
     print_defs(definitions);
     
-    auto search_1 = read_table(table_1, "table_1", definitions, args_1);
-    auto search_2 = read_table(table_2, "table_2", definitions, args_2);
+    ModDefs mod_definitions;
+    modify_definitions(definitions, default_defs, mod_definitions);
+    print_defs(mod_definitions);
+    
+    auto search_1 = read_table(table_1, "table_1", mod_definitions, args_1);
+    auto search_2 = read_table(table_2, "table_2", mod_definitions, args_2);
    
     auto out_file = open_out_file();
-    print_header_l2(out_file, definitions);
+    print_header_l2(out_file, definitions, mod_definitions);
 
-    parse_table(table_1, out_file, search_1, args_1, definitions, "table_1");
-    parse_table(table_2, out_file, search_2, args_2, definitions, "table_2");
+    parse_table(table_1, out_file, search_1, args_1, mod_definitions, "table_1");
+    parse_table(table_2, out_file, search_2, args_2, mod_definitions, "table_2");
 }
