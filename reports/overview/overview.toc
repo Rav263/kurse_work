@@ -1,0 +1,28 @@
+\boolfalse {citerequest}\boolfalse {citetracker}\boolfalse {pagetracker}\boolfalse {backtracker}\relax 
+\babel@toc {russian}{}
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {}Введение}{3}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {1}Цели и задачи работы}{4}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {2}Рассматриваяемая архитектура СПУ}{5}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {3}Постановка задачи}{6}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {chapter}{\numberline {4}Обзор структур данных для классификация пакетов в рамках рассматриваемой архитектуре СПУ}{7}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.1}Структуры данных для классификации пакетов в рамках рассматриваемой архитектуры СПУ}{8}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.1}Двоичное однобитное дерево}{8}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.2}Сжатое двоичное дерево}{9}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.3}Мультибитное сжатое дерево}{10}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.4}Бинарный поиск по длинам префиксов}{11}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {subsection}{\numberline {4.1.5}АВЛ дерево}{12}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.2}Сравнение структур данных}{13}% 
+\defcounter {refsection}{0}\relax 
+\contentsline {section}{\numberline {4.3}Выводы}{14}% 
