@@ -12,11 +12,13 @@ static void add_node(Node *root, Net_IP net_ip) {
     std::bitset<32> ip_set(net_ip.first);
     Node **now_node = &root;
 
+    // finding empty node
     int ind;
     for (ind = 31; ind >= 31 - net_ip.second and *now_node != nullptr; ind--) {
         now_node = ip_set[ind] ? &(*now_node)->left : &(*now_node)->right;
     }
 
+    // adding new node
     for (;ind >= 31 - net_ip.second; ind--) {
         *now_node = new Node();
         now_node = ip_set[ind] ? &(*now_node)->left : &(*now_node)->right;
@@ -31,8 +33,9 @@ static void add_node(Node *root, Net_IP net_ip) {
 }
 
 Node *build_radix_tree(Table &table) {
-   Node *root = new Node();
+    Node *root = new Node();
 
+    // add all entries from table into tree
     for (auto now_entry : table) {
         std::cout << intip_to_string(now_entry);
         add_node(root, now_entry.first);
@@ -41,6 +44,8 @@ Node *build_radix_tree(Table &table) {
     return root;
 }
 
+
+// recursive tree printing
 static void print_node(Node *start, int height) {
     if (start == nullptr) return;
     for(int i = 0; i < height; i++) {
@@ -51,6 +56,7 @@ static void print_node(Node *start, int height) {
     print_node(start->right, height + 1);
 }
 
+// recursive node search
 Net_IP find_node_radix(Node *now_node, IP sr_ip, uint32_t deph) {
     if (now_node == nullptr) return {0, 0};
 

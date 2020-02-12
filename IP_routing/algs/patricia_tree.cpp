@@ -8,6 +8,7 @@
 static void add_node(Node **now_node, Net_IP net_ip, uint32_t last_gone) {
     if (*now_node == nullptr) {
         *now_node = new Node(net_ip.second, net_ip.first, nullptr, nullptr);
+        (*now_node)->current_bit = 32 - net_ip.second;
         return;
     }
 
@@ -17,7 +18,9 @@ static void add_node(Node **now_node, Net_IP net_ip, uint32_t last_gone) {
     std::bitset<32> ip_set_sr(net_ip.first);
     std::bitset<32> ip_set_now(ip_now);
 
-    for (uint32_t i = last_gone; i >= tmp_bit; i--) {
+    auto min_bit = (int)tmp_bit > net_ip.second ? tmp_bit : net_ip.second;
+
+    for (uint32_t i = last_gone; i >= min_bit; i--) {
         if (ip_set_sr[i] != ip_set_now[i]) {
             auto tmp_ptr = *now_node;
 
@@ -38,10 +41,21 @@ static void add_node(Node **now_node, Net_IP net_ip, uint32_t last_gone) {
 }
 
 
-Net_IP find_node_patricia(Node *, IP sr_ip, uint32_t dehp) {
-    return {sr_ip, 0};
+Net_IP find_node_patricia(Node *now_node, IP sr_ip, uint32_t deph) {
+    if (now_node == nullptr) return {0, 0};
+
+    if (now_node->mask != 0 and now_node->net_ip != 0) {
+        auto tmp = find_node_patricia((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
+
+        if (tmp.second > now_node->mask) return tmp;
+        else return {now_node->net_ip, now_node->mask};
+    } else {
+        return find_node_patricia((sr_ip & (1 << (31 - deph))) ? now_node->left : now_node->right, sr_ip, deph + 1);
+    }
 }
 
+
+// recursive tree printing
 static void print_node(Node *start, int height) {
     if (start == nullptr) return;
     for(int i = 0; i < height; i++) {
@@ -52,6 +66,8 @@ static void print_node(Node *start, int height) {
     print_node(start->right, height + 1);
 }
 
+
+// Adding all entries from table into tree
 Node *build_patricia_tree(Table &table) {
     Node *root = new Node();
     root->current_bit = 31;
