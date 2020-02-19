@@ -20,3 +20,26 @@ static void add_node(Node *root, Net_IP net_ip) {
     Node **now_node = &root;
 
 }
+
+Node *build_avl_tree(Table &table) {
+    Node *root = new Node();
+
+    for (auto now_entry : table) {
+        std::cout << intip_to_string(now_entry);
+    }
+
+    return root;
+}
+
+Net_IP find_node_avl(Node *now_node, IP sr_ip, int32_t depht) {
+    std::string str_an_ip;
+    std::cin >> str_an_ip;
+    IP an_ip = strip_to_int(str_an_ip);
+
+    int32_t mask_1, mask_2;
+    std::cin >> mask_1 >> mask_2;
+
+    std::cout << prefix_compare({sr_ip, mask_1}, {an_ip, mask_2}) << std::endl;
+
+    return {0, 0};
+}
