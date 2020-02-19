@@ -44,9 +44,20 @@ void particia(Table &table) {
     }
 
 }
-void huffman(Table &table) {
-    std::cout << "Comming soon" << std::endl;
+void avl(Table &table) {
+    Node *root = build_avl_tree(table);
+    std::string sr_ip;
+
+    while (std::cin >> sr_ip) {
+        auto tmp = find_node_avl(root, strip_to_int(sr_ip), 0);
+
+        if (tmp.second == 0)
+            std::cout << " ===> default" << std::endl;
+        else
+            std::cout << intip_to_string({tmp, table[tmp]});
+    }
 }
+
 void alfabetic(Table &table) {
     std::cout << "Comming soon" << std::endl;
 }
@@ -66,7 +77,7 @@ int main() {
     std::cerr << "1 -- linary  search" << std::endl
               << "2 -- radix     tree" << std::endl
               << "3 -- patricia  tree" << std::endl
-              << "4 -- huffman   tree" << std::endl
+              << "4 -- avl       tree" << std::endl
               << "5 -- alfabetic tree" << std::endl;
     int alg;
     std::cin >> alg;
@@ -74,7 +85,7 @@ int main() {
     if      (alg == 1) linary(table);
     else if (alg == 2) radix(table);
     else if (alg == 3) particia(table);
-    else if (alg == 4) huffman(table);
+    else if (alg == 4) avl(table);
     else if (alg == 5) alfabetic(table);
     else {
         std::cerr << "Not correct num" << std::endl;
