@@ -17,8 +17,6 @@ public:
         current_bit = 0;
     }
 
-    Node(
-
     Node(uint32_t current_bit, Node *left, Node *right): 
         current_bit(current_bit), left(left), right(right) {
         net_ip = 0;

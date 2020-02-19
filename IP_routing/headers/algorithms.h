@@ -9,7 +9,9 @@ std::pair<Net_IP, int> linary_search(Table &table, IP sr_ip);
 
 Node *build_radix_tree(Table &table);
 Node *build_patricia_tree(Table &table);
+Node *build_avl_tree(Table &table);
 
-Net_IP find_node_radix(Node *now_node, IP sr_ip, uint32_t deph);
-Net_IP find_node_patricia(Node *now_node, IP sr_ip, uint32_t deph);
+Net_IP find_node_radix(Node *now_node, IP sr_ip, uint32_t depht);
+Net_IP find_node_patricia(Node *now_node, IP sr_ip, uint32_t depht);
+Net_IP find_node_avl(Node *now_node, IP sr_ip, int32_t depht);
 #endif 
