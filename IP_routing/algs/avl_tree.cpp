@@ -8,9 +8,19 @@
 #include "../headers/tree.h"
 
 bool prefix_compare(Net_IP net_ip_1, Net_IP net_ip_2) {
-    if (net_ip_1.second == net_ip_2.second) return net_ip_1.first < net_ip_2.first;
-    if (net_ip_1.second < net_ip_2.second) 
+    if (net_ip_1.second == net_ip_2.second) {
+        std::cout << intip_to_string(net_ip_1) << "(" << net_ip_1.first << ") < ";
+        std::cout << intip_to_string(net_ip_2) << "(" << net_ip_2.first << ") = ";
+        return net_ip_1.first < net_ip_2.first;
+    }
+    if (net_ip_1.second < net_ip_2.second) { 
+        std::cout << intip_to_string(net_ip_1) << "(" << (net_ip_1.first >> (32 - net_ip_1.second))<< ") < ";
+        std::cout << intip_to_string(net_ip_2) << "(" << (net_ip_2.first >> (32 - net_ip_1.second))<< ") = "; 
         return (net_ip_1.first >> (32 - net_ip_1.second)) < (net_ip_2.first >> (32 - net_ip_1.second));
+    }
+    
+    std::cout << intip_to_string(net_ip_1) << "(" << (net_ip_1.first >> (32 - net_ip_2.second))<< ") < ";
+    std::cout << intip_to_string(net_ip_2) << "(" << (net_ip_2.first >> (32 - net_ip_2.second))<< ") = "; 
     return (net_ip_1.first >> (32 - net_ip_2.second)) < (net_ip_2.first >> (32 - net_ip_2.second));
 }
 
