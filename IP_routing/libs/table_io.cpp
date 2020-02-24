@@ -42,6 +42,20 @@ std::string intip_to_string(std::pair<Net_IP, int> now_entry) {
     return str_in.str();
 }
 
+std::string intip_to_string(Net_IP now_entrie) {
+    uint32_t ip   = now_entrie.first;
+    uint32_t mask = now_entrie.second;
+
+    std::stringstream str_in;
+
+    str_in << ((ip & (255 << 24)) >> 24) << ".";
+    str_in << ((ip & (255 << 16)) >> 16) << ".";
+    str_in << ((ip & (255 << 8 )) >> 8)  << ".";
+    str_in << (ip & 255) << "\\" << mask;
+    
+    return str_in.str();
+}
+
 void read_table(std::string &file_name, Table &table) {
     std::ifstream file;
     file.open(file_name);

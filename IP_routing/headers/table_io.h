@@ -12,6 +12,7 @@ using Table  = std::map<Net_IP, Port>; // map rules: Prefix -> port
 
 uint32_t strip_to_int(std::string&);
 std::string intip_to_string(std::pair<Net_IP, int>);
+std::string intip_to_string(Net_IP);
 void print_table(Table &);
 void read_table(std::string &, Table &);
 #endif
