@@ -67,13 +67,14 @@ void read_table_args(std::map<std::string, uint64_t> &args) {
             args["size"] = size;
 
         } else if (not arg_name.compare("ipv4")) {
-            args["size"] = 32; 
-       
+            args["size"] = 32;
+            args["name"] = 0;
         } else if (not arg_name.compare("ipv6")) {
             args["size"] = 128;
-
+            args["name"] = 1;
         } else if (not arg_name.compare("mac")) {
             args["size"] = 48;
+            args["name"] = 2;
 
         } else if (not arg_name.compare("end")) {
             break;
