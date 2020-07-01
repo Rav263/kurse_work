@@ -1,0 +1,387 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.1 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated as
+% required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+\datalist[entry]{nty/global//global/global}
+  \entry{behdadfar2011coded}{article}{}
+    \name{author}{4}{}{%
+      {{hash=BM}{%
+         family={Behdadfar},
+         familyi={B\bibinitperiod},
+         given={Mohammad},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Saidi},
+         familyi={S\bibinitperiod},
+         given={Hossein},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=HMR}{%
+         family={Hashemi},
+         familyi={H\bibinitperiod},
+         given={Massoud\bibnamedelima Reza},
+         giveni={M\bibinitperiod\bibinitdelim R\bibinitperiod},
+      }}%
+      {{hash=LYD}{%
+         family={Lin},
+         familyi={L\bibinitperiod},
+         given={Ying-Dar},
+         giveni={Y\bibinithyphendelim D\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {Wiley Online Library}%
+    }
+    \strng{namehash}{BM+1}
+    \strng{fullhash}{BMSHHMRLYD1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{number}{3}
+    \field{pages}{344\bibrangedash 354}
+    \field{title}{Coded and scalar prefix trees: Prefix matching using the
+  novel idea of double relation chains}
+    \field{volume}{33}
+    \field{journaltitle}{ETRI Journal}
+    \field{year}{2011}
+  \endentry
+
+  \entry{behdadfar2009scalar}{inproceedings}{}
+    \name{author}{4}{}{%
+      {{hash=BM}{%
+         family={Behdadfar},
+         familyi={B\bibinitperiod},
+         given={Mohammad},
+         giveni={M\bibinitperiod},
+      }}%
+      {{hash=SH}{%
+         family={Saidi},
+         familyi={S\bibinitperiod},
+         given={Hossein},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=AH}{%
+         family={Alaei},
+         familyi={A\bibinitperiod},
+         given={Hamid},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=SB}{%
+         family={Samari},
+         familyi={S\bibinitperiod},
+         given={Babak},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{BM+1}
+    \strng{fullhash}{BMSHAHSB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{IEEE INFOCOM 2009}
+    \field{pages}{2509\bibrangedash 2517}
+    \field{title}{Scalar prefix search: A new route lookup algorithm for next
+  generation internet}
+    \field{year}{2009}
+  \endentry
+
+  \entry{berger2003ip}{inproceedings}{}
+    \name{author}{1}{}{%
+      {{hash=BM}{%
+         family={Berger},
+         familyi={B\bibinitperiod},
+         given={Michael},
+         giveni={M\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{BM1}
+    \strng{fullhash}{BM1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{Workshop on High Performance Switching and Routing, 2003,
+  HPSR.}
+    \field{pages}{287\bibrangedash 291}
+    \field{title}{IP lookup with low memory requirement and fast update}
+    \field{year}{2003}
+  \endentry
+
+  \entry{bifulco2018survey}{inproceedings}{}
+    \name{author}{2}{}{%
+      {{hash=BR}{%
+         family={Bifulco},
+         familyi={B\bibinitperiod},
+         given={Roberto},
+         giveni={R\bibinitperiod},
+      }}%
+      {{hash=RG}{%
+         family={R{\'e}tv{\'a}ri},
+         familyi={R\bibinitperiod},
+         given={G{\'a}bor},
+         giveni={G\bibinitperiod},
+      }}%
+    }
+    \list{organization}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{BRRG1}
+    \strng{fullhash}{BRRG1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{booktitle}{2018 IEEE 19th International Conference on High
+  Performance Switching and Routing (HPSR)}
+    \field{pages}{1\bibrangedash 7}
+    \field{title}{A survey on the programmable data plane: Abstractions,
+  architectures, and open problems}
+    \field{year}{2018}
+  \endentry
+
+  \entry{scapy:1}{manual}{}
+    \name{author}{1}{}{%
+      {{hash=BP}{%
+         family={Biondi},
+         familyi={B\bibinitperiod},
+         given={Philippe},
+         giveni={P\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{BP1}
+    \strng{fullhash}{BP1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{B}
+    \field{sortinithash}{B}
+    \field{title}{Scapy python library}
+    \verb{url}
+    \verb https://scapy.net
+    \endverb
+    \field{year}{2019}
+  \endentry
+
+  \entry{chao2007high:1}{book}{}
+    \name{author}{2}{}{%
+      {{hash=CHJ}{%
+         family={Chao},
+         familyi={C\bibinitperiod},
+         given={H\bibnamedelima Jonathan},
+         giveni={H\bibinitperiod\bibinitdelim J\bibinitperiod},
+      }}%
+      {{hash=LB}{%
+         family={Liu},
+         familyi={L\bibinitperiod},
+         given={Bin},
+         giveni={B\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {John Wiley \& Sons}%
+    }
+    \strng{namehash}{CHJLB1}
+    \strng{fullhash}{CHJLB1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{C}
+    \field{sortinithash}{C}
+    \field{title}{High performance switches and routers}
+    \field{year}{2007}
+  \endentry
+
+  \entry{mun2006binary}{article}{}
+    \name{author}{3}{}{%
+      {{hash=MJH}{%
+         family={Mun},
+         familyi={M\bibinitperiod},
+         given={Ju\bibnamedelima Hyoung},
+         giveni={J\bibinitperiod\bibinitdelim H\bibinitperiod},
+      }}%
+      {{hash=LH}{%
+         family={Lim},
+         familyi={L\bibinitperiod},
+         given={Hyesook},
+         giveni={H\bibinitperiod},
+      }}%
+      {{hash=YC}{%
+         family={Yim},
+         familyi={Y\bibinitperiod},
+         given={Changhoon},
+         giveni={C\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{MJHLHYC1}
+    \strng{fullhash}{MJHLHYC1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{M}
+    \field{sortinithash}{M}
+    \field{number}{6}
+    \field{pages}{492\bibrangedash 494}
+    \field{title}{Binary search on prefix lengths for IP address lookup}
+    \field{volume}{10}
+    \field{journaltitle}{IEEE Communications Letters}
+    \field{year}{2006}
+  \endentry
+
+  \entry{ruiz2001survey}{article}{}
+    \name{author}{3}{}{%
+      {{hash=RSMA}{%
+         family={Ruiz-S{\'a}nchez},
+         familyi={R\bibinithyphendelim S\bibinitperiod},
+         given={Miguel\bibnamedelima {\'A}},
+         giveni={M\bibinitperiod\bibinitdelim {\'A}\bibinitperiod},
+      }}%
+      {{hash=BEW}{%
+         family={Biersack},
+         familyi={B\bibinitperiod},
+         given={Ernst\bibnamedelima W},
+         giveni={E\bibinitperiod\bibinitdelim W\bibinitperiod},
+      }}%
+      {{hash=DW}{%
+         family={Dabbous},
+         familyi={D\bibinitperiod},
+         given={Walid},
+         giveni={W\bibinitperiod},
+      }}%
+    }
+    \list{publisher}{1}{%
+      {IEEE}%
+    }
+    \strng{namehash}{RSMABEWDW1}
+    \strng{fullhash}{RSMABEWDW1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{R}
+    \field{sortinithash}{R}
+    \field{number}{2}
+    \field{pages}{8\bibrangedash 23}
+    \field{title}{Survey and taxonomy of IP address lookup algorithms}
+    \field{volume}{15}
+    \field{journaltitle}{IEEE network}
+    \field{year}{2001}
+  \endentry
+
+  \entry{bezzubtsev2019ob-odnom183708319}{article}{}
+    \name{author}{7}{}{%
+      {{hash=���}{%
+         family={Беззубцев},
+         familyi={�\bibinitperiod},
+         given={С.\bibnamedelima О.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Васин},
+         familyi={�\bibinitperiod},
+         given={В.\bibnamedelima В.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Волканов},
+         familyi={�\bibinitperiod},
+         given={Д.\bibnamedelima Ю.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Жайлауова},
+         familyi={�\bibinitperiod},
+         given={Ш.\bibnamedelima Р.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Мирошник},
+         familyi={�\bibinitperiod},
+         given={В.\bibnamedelima А.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Скобцова},
+         familyi={�\bibinitperiod},
+         given={Ю.\bibnamedelima А.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+      {{hash=���}{%
+         family={Смелянский},
+         familyi={�\bibinitperiod},
+         given={Р.\bibnamedelima Л.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+    }
+    \list{language}{1}{%
+      {russian}%
+    }
+    \list{publisher}{1}{%
+      {Ярославль}%
+    }
+    \strng{namehash}{���+1}
+    \strng{fullhash}{���������������������1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{�}
+    \field{sortinithash}{�}
+    \verb{doi}
+    \verb 10.18255/1818-1015-2019-1-39-62
+    \endverb
+    \field{issn}{1818-1015}
+    \field{number}{1}
+    \field{pages}{39\bibrangedash 62}
+    \field{title}{Об одном подходе к построению
+  сетевого процессорного устройства}
+    \field{volume}{26}
+    \list{location}{1}{%
+      {Ярославль}%
+    }
+    \field{journaltitle}{Моделирование и анализ
+  информационных систем}
+    \field{year}{2019}
+  \endentry
+
+  \entry{smel2012open}{article}{}
+    \name{author}{1}{}{%
+      {{hash=���}{%
+         family={Л.},
+         familyi={�\bibinitperiod},
+         given={Смелянский\bibnamedelima Р.},
+         giveni={�\bibinitperiod\bibinitdelim �\bibinitperiod},
+      }}%
+    }
+    \strng{namehash}{���1}
+    \strng{fullhash}{���1}
+    \field{labelnamesource}{author}
+    \field{labeltitlesource}{title}
+    \field{sortinit}{�}
+    \field{sortinithash}{�}
+    \field{pages}{15–26}
+    \field{title}{Программно-конфигурируемые сети}
+    \field{volume}{9}
+    \field{journaltitle}{Открытые системы}
+    \field{year}{2012}
+  \endentry
+\enddatalist
+\endinput
